@@ -118,3 +118,17 @@ function populateEpisodes(episodes) {
 
   $episodesArea.show();
 }
+
+/** Handle click on episodes button: get episodes for show and display */
+
+async function getEpisodesAndDisplay(evt) {
+  // here's one way to get the ID of the show: search "closest" ancestor
+  // with the class of .Show (which is put onto the enclosing div, which
+  // has the .data-show-id attribute).
+  const showId = $(evt.target).closest(".Show").data("show-id");
+
+  const episodes = await getEpisodesOfShow(showId);
+  populateEpisodes(episodes);
+}
+
+$showsList.on("click", ".Show-getEpisodes", getEpisodesAndDisplay);
